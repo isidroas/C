@@ -4,7 +4,8 @@
 unsigned int *prime_factors(unsigned int n)
 {
     unsigned *res = NULL, *current = NULL, i = 2;
-    res = current = malloc(sizeof(unsigned) * 20);
+    res =  malloc(sizeof(unsigned) * 20);
+    unsigned size =0;
     while (n > 1 && i <= n)
     {
         if (n % i)
@@ -13,19 +14,17 @@ unsigned int *prime_factors(unsigned int n)
             continue;
         }
         n = n / i;
-        *current = i;
-        current++;
-        unsigned n_elements = current - res;
-        if((n_elements-1)%20==0){
-          // minus one because we have to leave room to the terminator
-          res = realloc(res, (n_elements + 20)*sizeof(unsigned));
+        res[size] = i;
+        size++;
+        if((size+1)%20==0){
+          // plus one because we have to leave room to the terminator
+          res = realloc(res, (size + 20)*sizeof(unsigned));
           if (res == NULL) {
             return NULL;
           }
-          current = res + n_elements;
         }
     }
-    *current = 0;  // terminator
+    res[size] = 0;  // terminator
     return res;
 }
 
