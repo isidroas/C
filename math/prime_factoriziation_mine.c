@@ -15,13 +15,14 @@ unsigned int *prime_factors(unsigned int n)
         n = n / i;
         *current = i;
         current++;
-        // TODO: check if overflow. when i%20 == 0?
-        if((i-1)%20==0){
+        unsigned n_elements = current - res;
+        if((n_elements-1)%20==0){
           // minus one because we have to leave room to the terminator
-          res = realloc(res, (i + 20)*sizeof(unsigned));
+          res = realloc(res, (n_elements + 20)*sizeof(unsigned));
           if (res == NULL) {
             return NULL;
           }
+          current = res + n_elements;
         }
     }
     *current = 0;  // terminator
