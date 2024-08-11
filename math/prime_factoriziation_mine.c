@@ -4,7 +4,9 @@
 // alloc_if_necessary(array, index)
 void ensure_array_size(unsigned **parray, unsigned size)
 {
-    unsigned bytes = (size / 20 + 1) * 20 * sizeof(unsigned);
+    if (!size)
+      return NULL;
+    unsigned bytes = ((size-1) / 20 + 1) * 20 * sizeof(unsigned);
     printf("size: %u, bytes %lu\n", size, bytes / sizeof(unsigned));
     if (*parray == NULL)
         *parray = malloc(bytes);
