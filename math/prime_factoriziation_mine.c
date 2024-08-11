@@ -1,19 +1,19 @@
 #include <assert.h>
 #include <stdlib.h>
 
-// alloc_if_necessary(array, index)
 void ensure_array_size(unsigned **parray, unsigned size)
 {
     if (!size)
-      return NULL;
-    unsigned bytes = ((size-1) / 20 + 1) * 20 * sizeof(unsigned);
-    printf("size: %u, bytes %lu\n", size, bytes / sizeof(unsigned));
+        return;
+
+    unsigned bytes = ((size - 1) / 20 + 1) * 20 * sizeof(unsigned);
+
+    /* printf("size: %u, bytes %lu\n", size, bytes / sizeof(unsigned)); */
     if (*parray == NULL)
         *parray = malloc(bytes);
     else
-        *parray = realloc(
-            *parray,
-            bytes);  // realloc is efficent when the same size is requested?
+        // realloc is efficent when the same size is requested?
+        *parray = realloc(*parray, bytes);
     assert(*parray);
 }
 
