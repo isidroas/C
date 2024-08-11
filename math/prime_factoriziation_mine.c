@@ -1,11 +1,30 @@
 #include <assert.h>
 #include <stdlib.h>
 
-unsigned int *prime_factors(unsigned int n)
+// alloc_if_necessary(array, index)
+void ensure_array_size(unsigned **parray, unsigned size)
 {
-    unsigned *res = NULL, *current = NULL, i = 2;
-    res = malloc(sizeof(unsigned) * 20);
-    unsigned size = 0;
+    unsigned bytes = (size / 20 + 1) * 20 * sizeof(unsigned);
+    printf("size: %u, bytes %lu\n", size, bytes / sizeof(unsigned));
+    if (*parray == NULL)
+        *parray = malloc(bytes);
+    else
+        *parray = realloc(
+            *parray,
+            bytes);  // realloc is efficent when the same size is requested?
+    assert(*parray);
+}
+
+void append_array(unsigned **parray, unsigned *size, unsigned value)
+{
+    (*size)++;
+    ensure_array_size(parray, *size);
+    (*parray)[*size - 1] = value;
+}
+
+unsigned *prime_factors(unsigned n)
+{
+    unsigned *res = NULL, i = 2, size = 0;
     while (n > 1 && i <= n)
     {
         if (n % i)
@@ -14,19 +33,9 @@ unsigned int *prime_factors(unsigned int n)
             continue;
         }
         n = n / i;
-        res[size] = i;
-        size++;
-        if ((size + 1) % 20 == 0)
-        {
-            // plus one because we have to leave room to the terminator
-            res = realloc(res, (size + 20) * sizeof(unsigned));
-            if (res == NULL)
-            {
-                return NULL;
-            }
-        }
+        append_array(&res, &size, i);
     }
-    res[size] = 0;  // terminator
+    append_array(&res, &size, 0);  // terminator
     return res;
 }
 
