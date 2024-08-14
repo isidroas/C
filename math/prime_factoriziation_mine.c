@@ -1,18 +1,20 @@
 #include <assert.h>
 #include <stdlib.h>
 
+/* https://en.wikipedia.org/wiki/Dynamic_array */
 void ensure_array_size(unsigned **parray, unsigned size)
 {
     if (!size)
         return;
 
-    unsigned bytes = ((size - 1) / 20 + 1) * 20 * sizeof(unsigned);
+    #define STEP 20
+    unsigned bytes = ((size - 1) / STEP + 1) * STEP * sizeof(unsigned);
 
     /* printf("size: %u, bytes %lu\n", size, bytes / sizeof(unsigned)); */
     if (*parray == NULL)
         *parray = malloc(bytes);
     else
-        // realloc is efficent when the same size is requested?
+        // realloc is efficent when the same size is requested? if not we could wrap this call `if (((size-1)%STEP)==0)`
         *parray = realloc(*parray, bytes);
     assert(*parray);
 }
