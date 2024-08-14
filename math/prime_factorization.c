@@ -72,18 +72,13 @@ Range int_fact(int n)
     while (n % 2 == 0)
     {
         n /= 2;
-        if (i < len)
-        {
-            range[i] = 2;
-            i++;
-        }
-        else
+        if (i >= len)
         {
             range = increase(range, len);
             len += STEP;
-            range[i] = 2;
-            i++;
         }
+        range[i] = 2;
+        i++;
         count++;
     }
 
@@ -93,18 +88,13 @@ Range int_fact(int n)
         while (n % j == 0)
         {
             n /= j;
-            if (i < len)
-            {
-                range[i] = j;
-                i++;
-            }
-            else
+            if (i >= len)
             {
                 range = increase(range, len);
                 len += STEP;
-                range[i] = j;
-                i++;
             }
+            range[i] = j;
+            i++;
             count++;
         }
 
@@ -113,18 +103,13 @@ Range int_fact(int n)
 
     if (n > 1)
     {
-        if (i < len)
-        {
-            range[i] = n;
-            i++;
-        }
-        else
+        if (i >= len)
         {
             range = increase(range, len);
             len += STEP;
-            range[i] = n;
-            i++;
         }
+        range[i] = n;
+        i++;
         count++;
     }
 
