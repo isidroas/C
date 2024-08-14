@@ -21,12 +21,12 @@
     - its series/range of prime factors
     - its length : numbers of prime factors
 */
-typedef struct data
+struct range
 {
     int *range;
     int length;
-} range;
-typedef range *Range;
+};
+typedef struct range *Range;
 
 /* int_fac : calculates the prime factoriziation of positive integers */
 Range int_fact(int);
@@ -59,14 +59,14 @@ int main()
 
 Range int_fact(int n)
 {
-    assert(n > 1); /* precondition : n must be greater then 1*/
+    assert(n > 1); /* precondition */
 
     int len = LEN;
     int count = 0;
     int i = 0;
     int *range = (int *)malloc(sizeof(int) * len);
     assert(range);
-    Range pstr = (Range)malloc(sizeof(range));
+    Range pstr = (Range)malloc(sizeof(struct range));
     assert(pstr);
 
     while (n % 2 == 0)
