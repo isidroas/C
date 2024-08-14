@@ -1,7 +1,7 @@
 /*
     AUTHOR: Christian Bender
     DATE: 12.02.2019
-    DESCRIPTION: This program calculates the prime factoriziation of a positive
+    DESCRIPTION: This program calculates the prime factorization of a positive
    integer > 1
 */
 
@@ -17,7 +17,7 @@
 #define STEP 5
 
 /*
-    this type is for the representation of the prim factoriziation
+    this type is for the representation of the prim factorization
     - its series/range of prime factors
     - its length : numbers of prime factors
 */
@@ -28,7 +28,7 @@ struct range
 };
 typedef struct range *Range;
 
-/* int_fac : calculates the prime factoriziation of positive integers */
+/* int_fac : calculates the prime factorization of positive integers */
 Range int_fact(int);
 
 /* print_arr : prints the integer (heap) array*/
@@ -47,11 +47,11 @@ int main()
 {
     int n = 0; /* for user input */
 
-    printf("\t\tPrim factoriziation\n\n");
+    printf("\t\tPrime factorization\n\n");
     printf("positive integer (> 1) ? ");
     scanf("%d", &n);
     Range r = int_fact(n);
-    printf("\nThe factoriziation are: ");
+    printf("\nThe factorization are: ");
     print_arr(r);
     destroy(r);
     return 0;
