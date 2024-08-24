@@ -61,16 +61,11 @@ void test(void)
 
 void print_array(unsigned* array)
 {
-    if (array[0] == 0)
+    for (int i = 0; i < MAX_SIZE && array[i] != 0; i++)
     {
-        printf("<Empty array>\n");
-        return;
-    }
-    else
-        printf("%d", array[0]);
-    for (int i = 1; i < MAX_SIZE && array[i] != 0; i++)
-    {
-        printf("-%d", array[i]);
+        if (i != 0)
+            printf("-");
+        printf("%d", array[i]);
     }
     printf("\n");
 }
