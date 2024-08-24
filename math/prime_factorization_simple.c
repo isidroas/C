@@ -1,10 +1,11 @@
 #include <assert.h>
-#include <stdlib.h>
+#include <limits.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define MAX_SIZE 200
 
-int prime_factors(unsigned n, unsigned * res)
+int prime_factors(unsigned n, unsigned* res)
 {
     unsigned i = 2, size = 0;
     assert(res);
@@ -17,25 +18,29 @@ int prime_factors(unsigned n, unsigned * res)
         }
         n = n / i;
         size++;
-        if (size > MAX_SIZE){
-          printf("execeded maximum size %d. Increase the value of MAX_SIZE\n", MAX_SIZE);
-          return -1;
+        if (size > MAX_SIZE)
+        {
+            printf("execeded maximum size %d. Increase the value of MAX_SIZE\n",
+                   MAX_SIZE);
+            return -1;
         }
-        res[size-1] = i;
+        res[size - 1] = i;
     }
 
-    /* add a terminator */ 
+    /* add a terminator */
     size++;
-    if (size > MAX_SIZE){
-      printf("execeded maximum size %d. Increase the value of MAX_SIZE\n", MAX_SIZE);
-      return -1;
+    if (size > MAX_SIZE)
+    {
+        printf("execeded maximum size %d. Increase the value of MAX_SIZE\n",
+               MAX_SIZE);
+        return -1;
     }
-    res[size-1] = 0;
+    res[size - 1] = 0;
 
     return 0;
 }
 
-int main(void)
+void test(void)
 {
     unsigned array[MAX_SIZE];
     prime_factors(12, array);
@@ -52,5 +57,40 @@ int main(void)
     assert(array[0] == 2);
     assert(array[30] == 2);
     assert(array[31] == 0);
-    return 0;
+}
+
+void print_array(unsigned* array)
+{
+    if (array[0] == 0)
+    {
+        printf("<Empty array>\n");
+        return;
+    }
+    else
+        printf("%d", array[0]);
+    for (int i = 1; i < MAX_SIZE && array[i] != 0; i++)
+    {
+        printf("-%d", array[i]);
+    }
+    printf("\n");
+}
+
+int main(void)
+{
+    unsigned n;
+    unsigned array[MAX_SIZE];
+
+    test();
+
+    printf("Enter an integer in range [2, %u]\n> ", UINT_MAX);
+    if (scanf("%u", &n) != 1)
+    {
+        printf("failed scanf\n");
+        return 1;
+    }
+
+    if (prime_factors(n, array))
+        return 2;
+
+    print_array(array);
 }
